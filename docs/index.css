@@ -1,0 +1,254 @@
+html {
+    height: 100%;
+}
+* {
+    font-family: Lab Grotesque, sans-serif;
+}
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+#bodyWrapper {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(255.35deg, #DC3131 0.83%, rgba(255, 79, 79, 0) 108.93%), #FF5E56;
+    box-shadow: 0 -0.11px 17px rgba(183, 187, 225, 0.33);
+    border-radius: 0;
+    justify-content: center;
+}
+#startButton {
+    border: 1px solid #FFFFFF;
+    border-radius: 6px;
+    align-self: center;
+    padding: 0;
+    background: transparent;
+    color: #FFFFFF;
+    font-weight: 500;
+    transition: 500ms ease-in;
+}
+#startButton:hover {
+    background: #FFFFFF;
+    color: #000000;
+    cursor: pointer;
+}
+#startButton:disabled {
+    background: #BEC5CC;
+    color: #FFFFFF;
+    border-color: #BEC5CC;
+}
+#popUp {
+    position: absolute;
+    justify-content: center;
+    padding-top: 120px;
+    display: none;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    overflow: auto;
+}
+#calcWindow {
+    justify-content: center;
+    height: 476px;
+    padding: 32px;
+    background: #FFFFFF;
+    border-radius: 30px;
+    animation: fadeIn 2s linear 1;
+}
+#calcHeader {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+h1 {
+    font-weight: 500;
+    font-size: 28px;
+    line-height: 40px;
+    color: #000000;
+}
+#closeButton {
+    display: block;
+}
+#closeButton:hover {
+    cursor: pointer;
+}
+#info {
+    margin-bottom: 24px;
+}
+#salaryInput {
+    height: 40px;
+    width: 95%;
+    padding: 8px;
+    margin-top: 8px;
+    border: 1px solid #DFE3E6;
+    border-radius: 3px;
+    color: #BEC5CC;
+    font-size: 14px;
+    line-height: 24px;
+}
+#salaryInput:hover {
+    border: 1px solid #000000;
+}
+#salaryInput:disabled {
+    border: 1px solid #808080;
+}
+#calculateButton {
+    color: #EA0029;
+    font-size: 14px;
+    margin-top: 8px;
+}
+#calculateButton:hover {
+    cursor: pointer;
+    color: #F53A31;
+}
+#errorMessage {
+    display: block;
+    font-size: 10px;
+    color: #EA0029
+}
+#optionsWrapper {
+    display: flex;
+    margin-top: 26px;
+    margin-bottom: 42px;
+}
+#options {
+    display: flex;
+}
+.optionsButton {
+    height: 36px;
+    width: 73px;
+    margin-right: 16px;
+    padding: 6px 12px;
+    border-width: 0;
+    border-radius: 50px;
+    background-color: #EEF0F2;
+    color: #333333;
+    transition: 200ms ease-in;
+}
+.optionsButton:hover {
+    cursor: pointer;
+    background: linear-gradient(255.35deg, #DC3131 0.83%, rgba(255, 79, 79, 0) 108.93%), #FF5E56;
+    color: #FFFFFF;
+}
+#addButton {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    color: #FFFFFF;
+    background: linear-gradient(255.35deg, #DC3131 0.83%, rgba(255, 79, 79, 0) 108.93%), #FF5E56;
+    box-shadow: 0 0 24px rgba(234, 0, 41, 0.33);
+    border-radius: 6px;
+    border-width: 0;
+}
+#addButton:hover {
+    cursor: pointer;
+    background: #EA0029;
+}
+#addButton:disabled {
+    background: #BEC5CC;
+    box-shadow: none;
+}
+
+.grayText {
+    font-size: 14px;
+    line-height: 24px;
+    color: #808080;
+}
+.blackText {
+    font-size: 14px;
+    line-height: 24px;
+    color: #000000;
+}
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+@media screen and (min-width: 1440px){
+    #startButton {
+        width: 198px;
+        height: 56px;
+        font-size: 16px;
+        line-height: 24px;
+    }
+    #calcWindow {
+        width: 552px;
+    }
+    #optionsQuestion {
+        margin-right: 32px;
+    }
+    #addButton {
+        width: 389px;
+        height: 56px;
+    }
+}
+@media screen and (min-width: 768px) and (max-width: 1439px){
+    #startButton {
+        width: 198px;
+        height: 56px;
+        font-size: 16px;
+        line-height: 24px;
+    }
+    #calcWindow {
+        width: 453px;
+    }
+    #optionsQuestion {
+        margin-right: 76px;
+    }
+    #addButton {
+        width: 389px;
+        height: 56px;
+    }
+}
+@media screen and (max-width: 767px){
+    #startButton {
+        width: 149px;
+        height: 40px;
+        font-size: 12px;
+        line-height: 16px;
+    }
+    #popUp {
+        padding-top: 0;
+    }
+    #calcWindow {
+        height: 100%;
+        border-radius: 0;
+    }
+    #calcHeader {
+        margin-top: 22px;
+    }
+    h1 {
+        font-size: 18px;
+        line-height: 24px;
+    }
+    #optionsWrapper {
+        flex-direction: column;
+        margin-bottom: 140px;
+    }
+    #optionsQuestion {
+        margin-bottom: 24px;
+    }
+    #addButton {
+        width: 288px;
+        height: 40px;
+    }
+    .grayText .blackText {
+        font-size: 12px;
+        line-height: 16px;
+    }
+}

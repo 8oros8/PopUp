@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+<div id="popUp">
+    <div id="calcWindow">
+        <div id="calcHeader">
+            <h1>Налоговый вычет</h1>
+            <div id="closeButton"><img src="closeButton.png"></div>
+        </div>
+        <div id="info" class="grayText">
+            Используйте налоговый вычет чтобы погасить ипотеку досрочно. Размер налогового вычета составляет не более 13% от своего официального годового дохода.
+        </div>
+        <div class="blackText">
+            Ваша зарплата в месяц
+        </div>
+        <input id="salaryInput" step="100" min="0" value="Введите данные">
+        <div id="calculateButton">
+            Рассчитать
+        </div>
+        <div id="optionsWrapper">
+            <div id="optionsQuestion" class="blackText">
+                Что уменьшаем?
+            </div>
+            <div id="options">
+                <button id="optionsButtonPayment" class="optionsButton">
+                    Платеж
+                </button>
+                <button id="optionsButtonDuration" class="optionsButton">
+                    Срок
+                </button>
+            </div>
+        </div>
+        <button id="addButton">
+            Добавить
+        </button>
+    </div>
+</div>
+<div id="bodyWrapper">
+    <button id="startButton">
+        Налоговый вычет
+    </button>
+</div>
+<script src="index.js"></script>
+</body>
+</html>
