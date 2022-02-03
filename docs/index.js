@@ -7,6 +7,9 @@ const closeButton = document.getElementById('closeButton')
 const salaryInput = document.getElementById('salaryInput')
 const calculateButton = document.getElementById('calculateButton')
 const optionsButtons = document.querySelectorAll('.optionsButton')
+const optionsButtonPayment = document.getElementById('optionsButtonPayment')
+const optionsButtonDuration = document.getElementById('optionsButtonDuration')
+let currentIncome = 0
 
 startButton.onclick = function () {
     startButton.style.transition = 'none'
@@ -17,31 +20,115 @@ startButton.onclick = function () {
     }
 }
 
+optionsButtonDuration.onclick = function () {
+    if (optionsButtonPayment.classList.contains('activeButton')) {
+        optionsButtonPayment.classList.remove('activeButton')
+    }
+    optionsButtonDuration.classList.add('activeButton')
+}
+optionsButtonPayment.onclick = function () {
+    if (optionsButtonDuration.classList.contains('activeButton')) {
+        optionsButtonDuration.classList.remove('activeButton')
+    }
+    optionsButtonPayment.classList.add('activeButton')
+}
+
 closeButton.onclick = function () {
     startButton.style.transition = '500ms ease-in'
     bodyWrapper.style.display = 'flex'
     popUp.style.display = 'none'
+    if (document.querySelector('#calculationWrapper') !== null) {
+        document.querySelector('#calculationWrapper').remove()
+    }
+    salaryInput.type = 'text'
+    salaryInput.value = 'Введите данные'
+    salaryInput.style.color ='#BEC5CC'
     for (let button of optionsButtons) {
         button.style.transition = 'none'
     }
 }
 
-salaryInput.onfocus = function (event) {
-    event.target.value = ''
-    event.target.type = "number"
-    event.target.style.color = '#000000'
+salaryInput.onfocus = function () {
+    salaryInput.value = salaryInput.value === "Введите данные" ? salaryInput.value = '' : salaryInput.value
+    salaryInput.type = "number"
+    salaryInput.style.color = '#000000'
 }
-salaryInput.onblur = function (event) {
-    event.target.type = "text"
-    event.target.style.color = '#BEC5CC'
-}
-calculateButton.onclick = function (event) {
-    event.target.style.color = '#EA0029;'
-    if ((salaryInput.value === '') && (document.getElementById('errorMessage') === null)) {
-        let errorMessage = document.createElement('label')
-        salaryInput.after(errorMessage)
-        errorMessage.id = 'errorMessage'
-        errorMessage.innerText = 'Поле обязательно для заполнения'
-        salaryInput.style.border = '1px solid #EA0029'
+
+calculateButton.onclick = function () {
+    calculateButton.style.color = '#EA0029;'
+    if (((salaryInput.value === '') || (salaryInput.value === 'Введите данные')) && (document.getElementById('errorMessage') === null)) {
+        function inputError () {
+            let errorMessage = document.createElement('label')
+            salaryInput.after(errorMessage)
+            errorMessage.id = 'errorMessage'
+            errorMessage.innerText = 'Поле обязательно для заполнения'
+            salaryInput.style.border = '1px solid #EA0029'
+        }
+        inputError()
+        if (document.querySelector('#calculationWrapper')) {
+            document.querySelector('#calculationWrapper').remove()
+        }
+    }
+    if ((typeof(+salaryInput) === 'number') && (+salaryInput.value > 500)) {
+        if (document.getElementById('errorMessage')) {
+            salaryInput.style.border = '1px solid #DFE3E6'
+            document.getElementById('errorMessage').remove()
+        }
+        let yearIncome = parseInt(salaryInput.value) * 12
+        let yearlyTaxDeduction = yearIncome*0.13
+        let yearsNumber = Math.ceil(260000/yearlyTaxDeduction)
+        function calculate() {
+            let calculationWrapper = document.createElement('div')
+            calculationWrapper.id = 'calculationWrapper'
+            calculationWrapper.innerHTML = '<div class="blackText">\n' +
+                '        Итого можете внести в качестве досрочных:\n' +
+                '    </div>\n'
+            for (let i = 0; i < yearsNumber; i++) {
+                let calculationItem = document.createElement('div')
+                calculationItem.className = 'calculationItem'
+                let checkboxInput = document.createElement('div')
+                checkboxInput.className = 'checkboxInput'
+                let calculationText = document.createElement('div')
+                calculationText.className = 'calculationText'
+                let calculationItemNumber = document.createElement('div')
+                calculationItemNumber.className = 'blackText'
+                calculationItemNumber.innerText = (i === yearsNumber-1)? `${260000%yearlyTaxDeduction}` :`${yearlyTaxDeduction}`
+                let calculationItemYear = document.createElement('div')
+                calculationItemYear.className = 'grayText'
+                calculationItemYear.innerText = '\u00A0'+'за ' + `${i+1}` + '-й год'
+                calculationText.append(calculationItemNumber,calculationItemYear)
+                calculationItem.append(checkboxInput, calculationText)
+                calculationWrapper.append(calculationItem)
+            }
+            calculateButton.after(calculationWrapper)
+            currentIncome = +salaryInput.value
+            let checkboxInputs = document.querySelectorAll('.checkboxInput')
+            for (let checkbox of checkboxInputs) {
+                function fillCheckbox(checkbox) {
+                    if (checkbox.innerText === '') {
+                        checkbox.innerText = '✓'
+                        checkbox.style.background = '#FF5E56'
+                    }
+                    else {
+                        checkbox.innerText = ''
+                        checkbox.style.background = 'none'
+                    }
+                }
+                checkbox.onclick = function () {
+                    fillCheckbox(checkbox)
+                }
+                checkbox.parentElement.lastElementChild.onclick = function () {
+                    fillCheckbox(checkbox)
+                }
+            }
+        }
+        if ((document.querySelector('#calculationWrapper')) && (yearIncome/12 !== currentIncome )) {
+            document.querySelector('#calculationWrapper').remove()
+            calculate()
+        }
+        if (!(document.querySelector('#calculationWrapper'))) {
+            calculate()
+        }
     }
 }
+
